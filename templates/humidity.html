@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+    		<!-- Page wrapper start -->
+		<div class="page-wrapper">
+
+			<!-- Main container start -->
+			<div class="main-container">
+                {% include 'navbar.html' %}
+
+				<!-- App container starts -->
+				<div class="app-container">
+
+
+					<!-- App hero header starts -->
+					<div class="app-hero-header">
+						<h3 class="fw-light">Sensor Data </h3>
+						<h5 class="fw-light mb-5">This is a table containing all sensor data recorded into the system</h5>
+					</div>
+					<!-- App Hero header ends -->
+
+					<!-- App body starts -->
+					<div class="app-body">
+
+                        							<div class="col-xxl-12">
+								<div class="card shadow mb-4">
+									<div class="card-body">
+										<div class="table-responsive">
+											<table class="table m-0">
+												<thead>
+													<tr>
+														<th>ID</th>
+														<th>Temperature</th>
+														<th>Humidity</th>
+														<th>Water Level</th>
+														<th>Led 1 </th>
+														<th>Led 2</th>
+														<th>Feeder</th>
+														<th>Date</th>
+													</tr>
+												</thead>
+												<tbody>
+                                                {% for data in sensor_data %}
+													<tr>
+														<td>#{{ data.id }}</td>
+														<td>{{ data.temperature }}</td>
+														<td>{{ data.humidity }}</td>
+														<td>{{ data.water_level }}</td>
+														<td>{{ data.led_light1_status }}</td>
+														<td>{{ data.led_light2_status }}</td>
+														<td>{{ data.servo_motor_status }}</td>
+														<td>{{ data.date }}</td>
+													</tr>
+                                                {% endfor %}
+
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+
+					</div>
+					<!-- App body ends -->
+
+
+				</div>
+				<!-- App container ends -->
+
+			</div>
+			<!-- Main container end -->
+
+		</div>
+
+{% endblock content %}
+

@@ -1,0 +1,63 @@
+{% load static %}
+
+<nav id="sidebar" class="sidebar-wrapper">
+
+
+					<!-- Sidebar profile starts -->
+					<div class="sidebar-user-profile">
+						<img src="{% static 'assets/images/poultry2.jpg' %}" class="profile-thumb rounded-circle p-2 d-lg-flex d-none"
+							alt="" />
+						<h5 class="profile-name lh-lg mt-2 text-truncate">Smart Poultry </h5>
+					</div>
+					<!-- Sidebar profile ends -->
+
+					<!-- Sidebar menu starts -->
+					<div class="sidebarMenuScroll">
+						<ul class="sidebar-menu">
+							<li class="active current-page">
+								<a href="{% url 'dashboard' %}">
+									<i class="bi bi-clipboard-data"></i>
+									<span class="menu-text">Dashboard</span>
+								</a>
+							</li>
+                            <li class="">
+								<a href="{% url 'sensor' %}">
+									<i class="bi bi-broadcast"></i>
+									<span class="menu-text">Sensors</span>
+								</a>
+							</li>
+                            <li class="">
+								<a href="{% url 'devices' %}">
+									<i class="bi bi-motherboard"></i>
+									<span class="menu-text">Actuators</span>
+								</a>
+							</li>
+                            <li class="">
+								<a href="{% url 'humidity' %}">
+									<i class="bi bi-thermometer-sun"></i>
+									<span class="menu-text">Recorded Data</span>
+								</a>
+							</li>
+                            <li class="">
+								<a href="{% url 'alerts' %}">
+									<i class="bi bi-bell"></i>
+									<span class="menu-text">Alerts</span>
+								</a>
+							</li>
+                            <li class="">
+								<a href="{% url 'users' %}">
+									<i class="bi bi-people"></i>
+									<span class="menu-text">Users</span>
+								</a>
+							</li>
+                            <li class="">
+								<a href="{% url 'logout' %}">
+									<i class="bi bi-box-arrow-right"></i>
+									<span class="menu-text">Log Out</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+					<!-- Sidebar menu ends -->
+
+				</nav>

@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+    		<!-- Page wrapper start -->
+		<div class="page-wrapper">
+
+			<!-- Main container start -->
+			<div class="main-container">
+                {% include 'navbar.html' %}
+
+				<!-- App container starts -->
+				<div class="app-container">
+
+
+					<!-- App hero header starts -->
+					<div class="app-hero-header">
+						<h3 class="fw-light">Sensor List</h3>
+						<h5 class="fw-light mb-5">This is a table containing all sensors in the Poultry System</h5>
+					</div>
+					<!-- App Hero header ends -->
+
+					<!-- App body starts -->
+					<div class="app-body">
+							<div class="col-xxl-12">
+								<div class="card shadow mb-4">
+									<div class="card-body">
+										<div class="table-responsive">
+											<table class="table table-bordered m-0">
+												<thead>
+													<tr>
+														<th>#</th>
+														<th>Name</th>
+														<th>Measurement</th>
+														<th>Current Reading</th>
+														<th>Status</th>
+														<th>Date Added</th>
+													</tr>
+												</thead>
+												<tbody>
+                                                {% for sensor in sensors %}
+													<tr>
+														<td>{{ sensor.id }}</td>
+														<td>{{ sensor.name }}</td>
+														<td>{{ sensor.measurement }}</td>
+														<td>{{ sensor.current_reading }}</td>
+														<td>
+															<span class="badge border border-success text-success">{{ sensor.status }}</span>
+														</td>
+														<td>{{ sensor.date_added }}</td>
+                                                    </tr>
+                                                {% endfor %}
+
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+                        
+
+					</div>
+					<!-- App body ends -->
+
+
+				</div>
+				<!-- App container ends -->
+
+			</div>
+			<!-- Main container end -->
+
+		</div>
+
+{% endblock content %}
+

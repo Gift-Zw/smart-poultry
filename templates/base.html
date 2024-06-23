@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Poultry System</title>
+    <link rel="stylesheet" href="{% static 'assets/fonts/bootstrap/bootstrap-icons.css' %}" />
+		<link rel="stylesheet" href="{% static 'assets/css/main.min.css' %}" />
+
+		<!-- *************
+			************ Vendor Css Files *************
+		************ -->
+
+		<!-- Scrollbar CSS -->
+		<link rel="stylesheet" href="{% static 'assets/vendor/overlay-scroll/OverlayScrollbars.min.css' %}" />
+</head>
+<body>
+
+{% block content %}
+
+{% endblock content %}
+
+{% include 'scripts.html' %}
+</body>
+</html>

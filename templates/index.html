@@ -1,0 +1,309 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+    		<!-- Page wrapper start -->
+		<div class="page-wrapper">
+
+			<!-- Main container start -->
+			<div class="main-container">
+                {% include 'navbar.html' %}
+
+				<!-- App container starts -->
+				<div class="app-container">
+
+
+					<!-- App hero header starts -->
+					<div class="app-hero-header">
+						<h5 class="fw-light">Hello {{ user.first_name }} {{ user.last_name }},</h5>
+						<h3 class="fw-light mb-5">Have a good day :)</h3>
+					</div>
+					<!-- App Hero header ends -->
+
+					<!-- App body starts -->
+					<div class="app-body">
+						<!-- Row starts -->
+						<div class="row">
+							<div class="col-xl-3 col-sm-6 col-12">
+								<div class="card shadow mb-4 p-2 rounded-4">
+									<div class="card-body d-flex align-items-center">
+										<div class="icon-box lg shadow-solid-rb border border-dark p-4 rounded-4 me-3">
+											<i class="bi bi-thermometer-half fs-1 lh-1 text-primary"></i>
+										</div>
+										<div class="m-0">
+											<h5 class="fw-light mb-1" >Temperature</h5>
+											<h2 class="m-0 text-primary" id="temperature">{{ data.temperature |floatformat:"1" }} </h2>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xl-3 col-sm-6 col-12">
+								<div class="card shadow mb-4 p-2 rounded-4">
+									<div class="card-body d-flex align-items-center">
+										<div class="icon-box lg shadow-solid-rb border border-dark p-4 rounded-4 me-3">
+											<i class="bi bi-cloud-drizzle fs-1 lh-1 text-primary"></i>
+										</div>
+										<div class="m-0">
+											<h5 class="fw-light mb-1">Humidity</h5>
+											<h2 class="m-0 text-primary" id="humidity">{{ data.humidity }}%</h2>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xl-3 col-sm-6 col-12">
+								<div class="card shadow mb-4 p-2 rounded-4">
+									<div class="card-body d-flex align-items-center">
+										<div class="icon-box lg shadow-solid-rb border border-dark p-4 rounded-4 me-3">
+											<i class="bi bi-moisture fs-1 lh-1 text-primary"></i>
+										</div>
+										<div class="m-0">
+											<h5 class="fw-light mb-1">Water Level</h5>
+											<h2 class="m-0 text-primary" id="water_level">{{ data.water_level }}%</h2>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xl-3 col-sm-6 col-12">
+								<div class="card shadow mb-4 p-2 rounded-4">
+									<div class="card-body d-flex align-items-center">
+										<div class="icon-box lg shadow-solid-rb border border-dark p-4 rounded-4 me-3">
+											<i class="bi bi-people fs-1 lh-1 text-primary"></i>
+										</div>
+										<div class="m-0">
+											<h5 class="fw-light mb-1">System Users</h5>
+											<h2 class="m-0 text-primary">{{ user_total }}</h2>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Row ends -->
+
+                        						<!-- Row start -->
+						<div class="row">
+							<div class="col-sm-3 col-12">
+								<div class="card shadow mb-4">
+									<div class="card-header">
+										<h5 class="card-title">Infrared Lamp 1</h5>
+									</div>
+									<div class="card-body p-4">
+										<div class="text-center my-4">
+											<div
+                                            id="led1">
+                                                {% if data.led_light1_status %}
+												<h1 class="text-success">ON</h1>
+												<i onclick="turnLed1Off()" class="bi bi-lightbulb-fill text-success fs-1"></i>
+                                                {% else %}
+                                                   <h1 class="text-muted"> OFF</h1>
+												<i onclick="turnLed1On()" class="bi bi-lightbulb-fill text-dark fs-1"></i>
+                                                {% endif %}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-3 col-12">
+								<div class="card shadow mb-4">
+									<div class="card-header">
+										<h5 class="card-title">Infrared Lamp 2</h5>
+									</div>
+									<div class="card-body p-4">
+										<div class="text-center my-4">
+											<div id="led2" class="text">
+                                                {% if data.led_light2_status %}
+												<h1 class="text-success">ON</h1>
+												<i onclick="turnLed2Off()" class="bi bi-lightbulb-fill text-success fs-1"></i>
+                                                {% else %}
+                                                   <h1 class="text-muted"> OFF</h1>
+												<i onclick="turnLed2On()" class="bi bi-lightbulb-fill text-dark fs-1"></i>
+                                                {% endif %}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-3 col-12">
+								<div class="card shadow mb-4">
+									<div class="card-header">
+										<h5 class="card-title">Fan</h5>
+									</div>
+									<div class="card-body p-4">
+										<div class="text-center my-4">
+											<div>
+												<h1 class="text-muted">OFF</h1>
+												<i class="bi bi-fan text-dark fs-1"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-3 col-12">
+								<div class="card shadow mb-4">
+									<div class="card-header">
+										<h5 class="card-title">Feeder</h5>
+
+									</div>
+									<div class="card-body p-4">
+										<div class="text-center my-4">
+											<div id="feeder">
+                                                {% if data.servo_motor_status > 1 %}
+												<h1 class="text-success">OPEN</h1>
+												<i onclick="turnFeederOff()" class="bi bi-basket-fill text-success fs-1"></i>
+                                                {% else %}
+                                                    <h1 class="text-muted">CLOSED</h1>
+												<i onclick="turnFeederOn()" class="bi bi-basket-fill text-dark fs-1"></i>
+                                                {% endif %}
+											</div>
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Row end -->
+
+						<!-- Row starts -->
+						<div class="row">
+							<div class="col-xxl-12">
+								<div class="card shadow mb-0">
+									<div class="card-header">
+										<h5 class="card-title">Average Temperature</h5>
+									</div>
+									<div class="card-body p-4">
+										<div id="yearlySales"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Row end -->
+
+
+
+
+					</div>
+					<!-- App body ends -->
+
+
+				</div>
+				<!-- App container ends -->
+
+			</div>
+			<!-- Main container end -->
+
+		</div>
+
+
+      <script>
+        console.log('heyyyy')
+        const ws = new WebSocket('ws://' + window.location.host + '/ws/sensor-data/');
+                ws.onopen = function(event) {
+            console.log("WebSocket is open now.");
+        };
+
+async function turnLed1On() {
+    try {
+        const response = await fetch('http://127.0.0.1:8000/turn-led1-on');
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        console.log('GET request sent successfully');
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
+}
+
+async function turnLed2On() {
+    try {
+        const response = await fetch('http://127.0.0.1:8000/turn-led2-on');
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        console.log('GET request sent successfully');
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
+}
+
+async function turnLed1Off() {
+    try {
+        const response = await fetch('http://127.0.0.1:8000/turn-led1-off');
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        console.log('GET request sent successfully');
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
+}
+
+async function turnLed2Off() {
+    try {
+        const response = await fetch('http://127.0.0.1:8000/turn-led2-off');
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        console.log('GET request sent successfully');
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
+}
+
+async function turnFeederOff() {
+    try {
+        const response = await fetch('http://127.0.0.1:8000/turn-feeder-off');
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        console.log('GET request sent successfully');
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
+}
+
+async function turnFeederOn() {
+    try {
+        const response = await fetch('http://127.0.0.1:8000/turn-feeder-on');
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        console.log('GET request sent successfully');
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
+}
+
+
+
+        ws.onmessage = function(event) {
+            const data = JSON.parse(event.data);
+            const temperature = document.getElementById('temperature');
+            const humidity = document.getElementById('humidity');
+            const water_level = document.getElementById('water_level');
+            const led1 = document.getElementById('led1');
+            const led2 = document.getElementById('led2');
+            const feeder = document.getElementById('feeder');
+
+            var sTemp = parseInt(data['temperature']) + "°C";
+            var sHumidity = parseInt(data['humidity']) + "%";
+            var sWaterlevel = parseInt(data['water_level']) + "%";
+            var sLed1 = (data['led_light1_status']) ? "ON" : "OFF";
+            var sLed2 = (data['led_light2_status']) ? "ON" : "OFF";
+            var sFeeder = (data['servo_motor_status'] < 2) ? "CLOSED" :"OPEN";
+
+           var htmlLed1 = (sLed1 == "ON") ? '<h1 class="text-success">ON</h1><i onclick="turnLed1Off()" class="bi bi-lightbulb-fill text-success fs-1"></i>' : '<h1 class="text-muted">OFF</h1><i onclick="turnLed1On()" class="bi bi-lightbulb-fill text-dark fs-1"></i>'  ;
+            var htmlLed2 = (sLed2 == "ON") ? '<h1 class="text-success">ON</h1><i onclick="turnLed2Off()" class="bi bi-lightbulb-fill text-success fs-1"></i>' : '<h1 class="text-muted">OFF</h1><i onclick="turnLed2On()" class="bi bi-lightbulb-fill text-dark fs-1"></i>'  ;
+            var htmlFeeder = (sFeeder == "OPEN") ? '<h1 class="text-success">OPEN</h1><i onclick="turnFeederOff()" class="bi bi-basket-fill text-success fs-1"></i>' :  '<h1 class="text-muted">CLOSED</h1><i onclick="turnFeederOn()" class="bi bi-basket-fill text-dark fs-1"></i>';
+            temperature.innerText = sTemp;
+            humidity.innerText = sHumidity;
+            water_level.innerText = sWaterlevel;
+            led1.innerHTML = htmlLed1
+            led2.innerHTML = htmlLed2;
+            feeder.innerHTML = htmlFeeder;
+        }
+    </script>
+
+{% endblock content %}
+
+

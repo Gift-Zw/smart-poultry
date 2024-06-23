@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+    		<!-- Page wrapper start -->
+		<div class="page-wrapper">
+
+			<!-- Main container start -->
+			<div class="main-container">
+                {% include 'navbar.html' %}
+
+				<!-- App container starts -->
+				<div class="app-container">
+
+
+					<!-- App hero header starts -->
+					<div class="app-hero-header">
+						<h3 class="fw-light">User Table</h3>
+                        <div style="margin-left: 70%"><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add New User</button></div>
+					</div>
+
+
+                    										<!-- Modal -->
+										<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+											aria-hidden="true">
+											<div class="modal-dialog">
+												<form class="modal-content" method="post" action="{% url 'users' %}">
+                                                    {%  csrf_token %}
+													<div class="modal-header">
+														<h5 class="modal-title" id="exampleModalLabel">
+															Add New User
+														</h5>
+														<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+													</div>
+													<div class="modal-body">
+                                                        {{ form | crispy }}
+                                                    </div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+															Close
+														</button>
+														<button type="submit" class="btn btn-primary">
+															Save changes
+														</button>
+													</div>
+                                                </form>
+												</div>
+											</div>
+										</div>
+					<!-- App Hero header ends -->
+
+					<!-- App body starts -->
+					<div class="app-body">
+
+                        <div class="col-xxl-12">
+								<div class="card shadow mb-4">
+									<div class="card-body">
+										<div class="table-responsive">
+											<table class="table table-striped m-0">
+												<thead>
+													<tr>
+														<th>User ID</th>
+														<th>First Name</th>
+														<th>Last Name</th>
+														<th>Phone</th>
+														<th>Email</th>
+														<th>Is Admin</th>
+														<th>Last Login</th>
+													</tr>
+												</thead>
+												<tbody>
+                                                {% for user in users %}
+													<tr>
+														<td>{{ user.id }}</td>
+														<td>{{ user.first_name }}</td>
+														<td>{{ user.last_name }}</td>
+														<td>{{ user.cell }}</td>
+														<td>{{ user.email }}</td>
+														<td>{{ user.is_admin }}</td>
+														<td>{{ user.last_login }}</td>
+													</tr>
+                                                {% endfor %}
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+
+					</div>
+					<!-- App body ends -->
+
+
+				</div>
+				<!-- App container ends -->
+
+			</div>
+			<!-- Main container end -->
+
+		</div>
+
+{% endblock content %}
+
